@@ -790,7 +790,38 @@ document.addEventListener('DOMContentLoaded', () => {
     updateServicesScroll();
   }
 
+  /* ==========================================================================
+     3D Interactive Tilt Cards Controller (Industries We Serve)
+     ========================================================================== */
+  const tiltCards = document.querySelectorAll('.category-3d-card[data-tilt]');
+  tiltCards.forEach(card => {
+    const inner = card.querySelector('.card-3d-inner');
+    if (!inner) return;
+
+    let rAF;
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+      const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const rotateX = (-yPct * 21).toFixed(2); // Tilt up/down up to 10.5deg
+      const rotateY = (xPct * 21).toFixed(2);  // Tilt left/right up to 10.5deg
+
+      if (rAF) cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(() => {
+        inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      if (rAF) cancelAnimationFrame(rAF);
+      inner.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+  });
+
 });
+
 
 
 

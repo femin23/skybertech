@@ -5996,6 +5996,184 @@ spline-viewer {
   }
 }
 
+/* ==========================================================================
+   3D Interactive Tilt Cards Grid (Industries We Serve)
+   ========================================================================== */
+.categories-grid-3d {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  width: 100%;
+  perspective: 1000px;
+  margin-top: 24px;
+}
+
+.category-3d-card {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  border-radius: 20px;
+  background: transparent;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-3d-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  transform-style: preserve-3d;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.category-3d-card:hover .card-3d-inner {
+  box-shadow: 0 30px 60px rgba(37, 99, 235, 0.28);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.card-3d-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: transform 0.5s ease;
+}
+
+.category-3d-card:hover .card-3d-bg {
+  transform: scale(1.06);
+}
+
+.card-3d-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.88) 100%);
+  pointer-events: none;
+}
+
+.card-3d-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 24px;
+  color: #ffffff;
+  transform-style: preserve-3d;
+}
+
+.card-3d-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  transform: translateZ(40px);
+}
+
+.card-3d-title-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-3d-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.card-3d-subtitle {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.45;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.card-3d-arrow-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  flex-shrink: 0;
+  transform: translateZ(60px);
+  transition: all 0.25s ease;
+}
+
+.card-3d-arrow-btn:hover {
+  background: rgba(255, 255, 255, 0.38);
+  transform: translateZ(60px) scale(1.1) rotate(5deg);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.card-3d-action-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transform: translateZ(50px);
+  transition: all 0.25s ease;
+}
+
+.card-3d-action-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: translateZ(50px) scale(1.02);
+  color: #ffffff;
+}
+
+/* Responsive Grid Rules for 3D Cards */
+@media (max-width: 1200px) {
+  .categories-grid-3d {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .categories-grid-3d {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .categories-grid-3d {
+    grid-template-columns: 1fr;
+  }
+  .category-3d-card {
+    height: 360px;
+  }
+}
+
+
 
 
 
