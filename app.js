@@ -1,77 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ==========================================================================
-     Page Preloader — hide only after hero & page are fully loaded
-     ========================================================================== */
-  const preloader = document.getElementById('page-preloader');
-  if (preloader) {
-    const minDelay = 800; // Minimum duration for visual smoothness
-    const startTime = Date.now();
-    let isHidden = false;
 
-    const hidePreloader = () => {
-      if (isHidden) return;
-      isHidden = true;
-
-      const elapsed = Date.now() - startTime;
-      const remaining = Math.max(0, minDelay - elapsed);
-      setTimeout(() => {
-        preloader.classList.add('preloader-hidden');
-        document.body.classList.remove('preloader-active');
-        preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
-      }, remaining);
-    };
-
-    const splineViewer = document.querySelector('spline-viewer');
-    let windowLoaded = (document.readyState === 'complete');
-    let splineLoaded = !splineViewer; // If no spline-viewer on page, treat as ready
-
-    const checkAllLoaded = () => {
-      if (windowLoaded && splineLoaded) {
-        hidePreloader();
-      }
-    };
-
-    if (!windowLoaded) {
-      window.addEventListener('load', () => {
-        windowLoaded = true;
-        checkAllLoaded();
-      });
-    }
-
-    if (splineViewer) {
-      const isSplineReady = () => {
-        return splineViewer.hasAttribute('loaded') ||
-               splineViewer.loaded === true ||
-               (splineViewer.shadowRoot && splineViewer.shadowRoot.querySelector('canvas'));
-      };
-
-      if (isSplineReady()) {
-        splineLoaded = true;
-        checkAllLoaded();
-      } else {
-        splineViewer.addEventListener('load-complete', () => {
-          splineLoaded = true;
-          checkAllLoaded();
-        });
-
-        // Active polling every 100ms to catch canvas mount instantly
-        const splinePoll = setInterval(() => {
-          if (isSplineReady()) {
-            splineLoaded = true;
-            clearInterval(splinePoll);
-            checkAllLoaded();
-          }
-        }, 100);
-      }
-    }
-
-    // Initial check in case window and spline are already ready
-    checkAllLoaded();
-
-    // Safety fallback: ensure preloader is hidden after 5s max if any asset hangs
-    setTimeout(hidePreloader, 5000);
-  }
 
 
 
@@ -442,20 +371,45 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   if (splineViewer && splineLoader) {
-    splineViewer.addEventListener('load-complete', () => {
-      splineLoader.style.display = 'none';
+    let isLoaderHidden = false;
+
+    const hideSplineLoader = () => {
+      if (isLoaderHidden) return;
+      isLoaderHidden = true;
+
+      splineLoader.style.transition = 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+      splineLoader.style.opacity = '0';
+      setTimeout(() => {
+        splineLoader.style.display = 'none';
+      }, 600);
+
       removeSplineLogo();
-    });
-    
+    };
+
+    const isSplineReady = () => {
+      return splineViewer.hasAttribute('loaded') ||
+             splineViewer.loaded === true ||
+             (splineViewer.shadowRoot && splineViewer.shadowRoot.querySelector('canvas'));
+    };
+
+    if (isSplineReady()) {
+      hideSplineLoader();
+    } else {
+      splineViewer.addEventListener('load-complete', hideSplineLoader);
+      
+      const pollSpline = setInterval(() => {
+        if (isSplineReady()) {
+          hideSplineLoader();
+          clearInterval(pollSpline);
+        }
+      }, 100);
+    }
+
     // Safety fallback: hide loader after 5s in case event is missed
-    setTimeout(() => {
-      splineLoader.style.display = 'none';
-      removeSplineLogo();
-    }, 5000);
-    
-    // Start polling immediately to catch the logo as soon as shadow DOM loads
+    setTimeout(hideSplineLoader, 5000);
     removeSplineLogo();
   }
+
 
   /* ==========================================================================
      About Section React Layout Animation
