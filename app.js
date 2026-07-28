@@ -693,16 +693,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const servicesTrack = document.getElementById('services-scroll-track');
   
   if (servicesTrack && sliderLinks.length > 0 && imageItems.length > 0) {
-    let isUserHovering = false;
-
-    // Allow hover to temporarily take precedence when user moves cursor over tiles
-    const hoverSlider = document.getElementById('services-hover-slider');
-    if (hoverSlider) {
-      hoverSlider.addEventListener('mouseenter', () => { isUserHovering = true; });
-      hoverSlider.addEventListener('mouseleave', () => { isUserHovering = false; });
-    }
+    let lastActiveIndex = -1;
 
     const setActiveSlide = (index) => {
+      if (index === lastActiveIndex) return;
+      lastActiveIndex = index;
+
       sliderLinks.forEach((l, i) => {
         if (i === index) {
           l.classList.add('active');
@@ -721,7 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateServicesScroll = () => {
-      if (window.innerWidth <= 768 || isUserHovering) return;
+      if (window.innerWidth <= 768) return;
 
       const rect = servicesTrack.getBoundingClientRect();
       const trackHeight = servicesTrack.offsetHeight;
@@ -730,14 +726,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (totalScrollable <= 0) return;
 
+      // Calculate how far we are into the pinned track
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(0.999, scrolled / totalScrollable));
 
-      // Map scroll progress (0..1) across 4 steps:
-      // 0.00-0.25 -> Slide 0 (AI Consulting)
-      // 0.25-0.50 -> Slide 1 (IT Consulting)
-      // 0.50-0.75 -> Slide 2 (Back Office)
-      // 0.75-1.00 -> Slide 3 (IT Auditing)
+      // Divide 0 to 1 progress across the 4 services:
+      // Step 1: AI Consulting (0.00 - 0.25)
+      // Step 2: IT Consulting (0.25 - 0.50)
+      // Step 3: Back Office    (0.50 - 0.75)
+      // Step 4: IT Auditing   (0.75 - 1.00)
       const targetIndex = Math.min(3, Math.floor(progress * 4));
       setActiveSlide(targetIndex);
     };
@@ -747,5 +744,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateServicesScroll();
   }
 });
+
 
 
