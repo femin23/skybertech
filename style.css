@@ -5782,6 +5782,223 @@ spline-viewer {
   border: 1px solid var(--border-light);
 }
 
+/* ==========================================================================
+   Testimonials Infinite Vertical Scroll Columns Section
+   ========================================================================== */
+.testimonials-section {
+  position: relative;
+  background-color: var(--bg-primary);
+  padding: 90px 0 70px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.testimonials-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.testimonials-header {
+  text-align: center;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.testimonials-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 50px;
+  border: 1px solid var(--border-light);
+  background-color: var(--bg-secondary);
+  color: var(--text-main);
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.testimonials-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+}
+
+.testimonials-subtitle {
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* 3-Column Vertical Infinite Scroll Wrapper */
+.testimonials-columns-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  max-height: 680px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+/* Gradient Mask for Smooth Top & Bottom Fade */
+.testimonials-top-fade, .testimonials-bottom-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.testimonials-top-fade {
+  top: 0;
+  background: linear-gradient(to bottom, var(--bg-primary) 0%, transparent 100%);
+}
+
+.testimonials-bottom-fade {
+  bottom: 0;
+  background: linear-gradient(to top, var(--bg-primary) 0%, transparent 100%);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+}
+
+.testimonials-column {
+  overflow: hidden;
+  height: 100%;
+}
+
+.testimonials-column-track {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+
+/* Keyframe Animations for Vertical Infinite Loop */
+.col-fast .testimonials-column-track {
+  animation: testimonialScrollVert 18s linear infinite;
+}
+
+.col-medium .testimonials-column-track {
+  animation: testimonialScrollVert 24s linear infinite;
+}
+
+.col-slow .testimonials-column-track {
+  animation: testimonialScrollVert 21s linear infinite;
+}
+
+.testimonials-column:hover .testimonials-column-track {
+  animation-play-state: paused;
+}
+
+@keyframes testimonialScrollVert {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Testimonial Card Styling matching React specs */
+.testimonial-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.testimonial-text {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-main);
+  font-weight: 400;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-light);
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.author-name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.author-role {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+/* Responsive Hide Rules matching React component specs */
+.col-tablet-show, .col-desktop-show {
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .col-desktop-show {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .col-tablet-show {
+    display: none;
+  }
+}
+
+
 
 
 
