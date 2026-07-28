@@ -5901,9 +5901,7 @@ spline-viewer {
   animation: testimonialScrollVert 21s linear infinite;
 }
 
-.testimonials-column:hover .testimonials-column-track {
-  animation-play-state: paused;
-}
+
 
 @keyframes testimonialScrollVert {
   0% {
