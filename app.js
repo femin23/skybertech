@@ -357,18 +357,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let attempts = 0;
     const logoInterval = setInterval(() => {
       if (splineViewer && splineViewer.shadowRoot) {
-        const logo = splineViewer.shadowRoot.querySelector('#logo');
+        const logo = splineViewer.shadowRoot.querySelector('#logo') || 
+                     splineViewer.shadowRoot.querySelector('a[href*="spline"]') ||
+                     splineViewer.shadowRoot.querySelector('.logo');
         if (logo) {
           logo.style.display = 'none';
-          clearInterval(logoInterval);
+          logo.style.visibility = 'hidden';
+          logo.style.opacity = '0';
+          logo.style.pointerEvents = 'none';
         }
-      }
-      attempts++;
-      if (attempts > 30) { // stop polling after 15 seconds
+        
+        // Inject style into shadowRoot to hide watermark logo permanently
+        if (!splineViewer.shadowRoot.querySelector('#hide-spline-logo-style')) {
+          const style = document.createElement('style');
+          style.id = 'hide-spline-logo-style';
+          style.textContent = '#logo, a[href*="spline"], .logo { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }';
+          splineViewer.shadowRoot.appendChild(style);
+        }
+        
         clearInterval(logoInterval);
       }
-    }, 500);
+      attempts++;
+      if (attempts > 50) { // stop polling after 5 seconds
+        clearInterval(logoInterval);
+      }
+    }, 100);
   };
+
 
   if (splineViewer && splineLoader) {
     let isLoaderHidden = false;
