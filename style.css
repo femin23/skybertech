@@ -5780,4 +5780,278 @@ spline-viewer {
   border: 1px solid var(--border-light);
 }
 
+/* ==========================================================================
+   Why Choose Skybertech? / Our Competitive Edge Section
+   ========================================================================== */
+.competitive-edge-section {
+  position: relative;
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(#d1e8fc 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+  padding: 80px 0 60px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.competitive-edge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+}
+
+/* Header */
+.edge-header {
+  text-align: center;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.edge-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: 50px;
+  background-color: #dbeafe;
+  color: #2563eb;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.edge-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: #0b1e36;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+}
+
+.edge-description {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Infinite Marquee Question Badges */
+.marquee-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  overflow: hidden;
+  margin: 10px 0 10px;
+}
+
+.marquee-fade-left, .marquee-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-fade-left {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-primary), transparent);
+}
+
+.marquee-fade-right {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-primary), transparent);
+}
+
+.marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.marquee-row {
+  display: flex;
+  width: max-content;
+  gap: 12px;
+}
+
+.marquee-left {
+  animation: marqueeScrollLeft 38s linear infinite;
+}
+
+.marquee-right {
+  animation: marqueeScrollRight 42s linear infinite;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 12px;
+}
+
+.marquee-badge {
+  white-space: nowrap;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #334155;
+  transition: all 0.25s ease;
+}
+
+.marquee-badge:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+@keyframes marqueeScrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeScrollRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* 4 Feature Cards Grid */
+.edge-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 1180px;
+  margin-top: 12px;
+}
+
+.edge-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 36px 32px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.edge-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(37, 99, 235, 0.08);
+  border-color: #cbd5e1;
+}
+
+.card-wide {
+  grid-column: span 7;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+}
+
+.card-narrow {
+  grid-column: span 5;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-left-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.card-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #eff6ff;
+  border: 1px solid #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.edge-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+}
+
+.edge-card-desc {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Card Visual 1: Trend Graph */
+.card-visual-graph {
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.graph-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Card Visual 4: 3x3 Block Grid */
+.card-visual-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 110px;
+  flex-shrink: 0;
+}
+
+.grid-block {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.grid-block.active {
+  background-color: #93c5fd;
+  border-color: #60a5fa;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+}
+
+.edge-card:hover .grid-block.active {
+  background-color: #3b82f6;
+  border-color: #2563eb;
+}
+
+/* Responsive Grid Adjustments */
+@media (max-width: 1024px) {
+  .edge-grid {
+    grid-template-columns: 1fr;
+  }
+  .card-wide, .card-narrow {
+    grid-column: span 1;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .card-visual-graph, .card-visual-grid {
+    margin-top: 16px;
+  }
+}
+
+
 
