@@ -529,8 +529,9 @@ document.addEventListener('DOMContentLoaded', () => {
             span.style.setProperty('--word-index', wordIndex++);
             span.innerText = word;
             newContent.push(span);
-          } else {
-            newContent.push(document.createTextNode(word));
+          } else if (word.length > 0) {
+            // Normalize multi-line indentation/whitespace to a single clean space
+            newContent.push(document.createTextNode(' '));
           }
         });
       } else if (node.nodeType === Node.ELEMENT_NODE) {
@@ -549,13 +550,14 @@ document.addEventListener('DOMContentLoaded', () => {
             span.style.setProperty('--word-index', wordIndex++);
             span.innerText = word;
             spanClone.appendChild(span);
-          } else {
-            spanClone.appendChild(document.createTextNode(word));
+          } else if (word.length > 0) {
+            spanClone.appendChild(document.createTextNode(' '));
           }
         });
         newContent.push(spanClone);
       }
     });
+
     
     valuesPara.innerHTML = '';
     newContent.forEach(item => valuesPara.appendChild(item));

@@ -1082,13 +1082,14 @@ spline-viewer {
 /* Highlight boxes styling matching the screenshot */
 .highlight-box {
   display: inline-block;
-  padding: 0 10px;
-  border-radius: 8px;
+  padding: 0 5px;
+  margin: 0 1px;
+  border-radius: 6px;
   font-weight: 700;
   border: 1px dashed transparent;
-  background-color: transparent; /* Remains fully transparent as requested */
-  margin: 0 4px;
+  background-color: transparent;
   transition: border-color 0.3s ease;
+  vertical-align: baseline;
 }
 
 .box-blue {
@@ -1115,11 +1116,13 @@ spline-viewer {
   opacity: 0.15; /* Dimmed state by default */
   color: var(--text-muted);
   transition: opacity 0.25s ease, color 0.25s ease;
+  vertical-align: baseline;
 }
 
 .reveal-word-item.inline {
   display: inline;
 }
+
 
 /* Bottom Row elements */
 .values-bottom-row {
