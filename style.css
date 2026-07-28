@@ -1180,19 +1180,53 @@ spline-viewer {
   transform: translateX(4px);
 }
 
-/* Responsive overrides for values statement */
+/* Responsive overrides for values statement — remove scroll effect & animation on mobile/tablet */
 @media (max-width: 1024px) {
-  .values-typography {
-    font-size: 1.7rem;
-    line-height: 1.5;
+  .values-scroll-track {
+    height: auto;
+    margin: 0;
+    padding: 20px 0;
   }
-  
+
+  .values-sticky-container {
+    position: relative;
+    top: auto;
+    height: auto;
+    padding-top: 0;
+    gap: 24px;
+  }
+
+  .values-typography {
+    font-size: 1.5rem;
+    line-height: 1.55;
+  }
+
+  .reveal-word-item {
+    opacity: 1 !important;
+    color: inherit !important;
+  }
+
+  .box-blue {
+    border-color: #3b82f6 !important;
+  }
+
+  .box-orange {
+    border-color: #f97316 !important;
+  }
+
+  .box-green {
+    border-color: #22c55e !important;
+  }
+
   .values-bottom-row {
+    opacity: 1 !important;
+    transform: none !important;
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
   }
 }
+
 
 .section-title {
   font-family: var(--font-heading);

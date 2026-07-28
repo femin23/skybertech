@@ -574,6 +574,26 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const updateScrollReveal = () => {
+        // Disable scroll reveal animation on mobile and tablet (<= 1024px)
+        if (window.innerWidth <= 1024) {
+          wordItems.forEach((item) => {
+            item.style.opacity = '1';
+            const highlightBox = item.closest('.highlight-box');
+            if (highlightBox) {
+              item.style.color = '';
+              highlightBox.style.borderColor = highlightBox.classList.contains('box-blue') ? '#3b82f6' :
+                                                highlightBox.classList.contains('box-orange') ? '#f97316' : '#22c55e';
+            } else {
+              item.style.color = 'var(--text-main)';
+            }
+          });
+          if (bottomRow) {
+            bottomRow.style.opacity = '1';
+            bottomRow.style.transform = 'none';
+          }
+          return;
+        }
+
         const rect = track.getBoundingClientRect();
         const trackTop = rect.top + window.scrollY;
         const trackHeight = rect.height;
@@ -627,6 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       };
+
 
       window.addEventListener('scroll', updateScrollReveal);
       window.addEventListener('resize', updateScrollReveal);
