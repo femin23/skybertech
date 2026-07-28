@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a3c48"/>
+      <stop offset="100%" stop-color="#2a2b34"/>
+    </radialGradient>
+
+    <!-- Bowl Inset Shadow -->
+    <radialGradient id="bowlGrad" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#343642"/>
+      <stop offset="70%" stop-color="#2a2c36"/>
+      <stop offset="100%" stop-color="#22232c"/>
+    </radialGradient>
+
+    <!-- Blue Glow Filter -->
+    <filter id="blueGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <filter id="brightBlueGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Outer Canvas -->
+  <rect width="512" height="512" rx="100" fill="url(#bgGrad)" />
+
+  <!-- Neumorphic Recessed Bowl -->
+  <circle cx="256" cy="256" r="200" fill="url(#bowlGrad)" stroke="#23242e" stroke-width="4" />
+  <circle cx="256" cy="256" r="198" fill="none" stroke="#484b5c" stroke-width="3" opacity="0.4" />
+
+  <!-- Center Text -->
+  <text x="256" y="262" font-family="'Outfit', 'Inter', sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#8a8eab" text-anchor="middle">LOADING...</text>
+
+  <!-- 12 Circular Pegs in Ring -->
+  <!-- Inactive Pegs -->
+  <!-- 0 deg (Top) -->
+  <circle cx="256" cy="96" r="22" fill="#3a3d4f" stroke="#22232e" stroke-width="3" />
+  <!-- 30 deg -->
+  <circle cx="336" cy="117" r="22" fill="#3a3d4f" stroke="#22232e" stroke-width="3" />
+  <!-- 60 deg -->
+  <circle cx="395" cy="176" r="22" fill="#3a3d4f" stroke="#22232e" stroke-width="3" />
+  
+  <!-- Active Blue Glowing Pegs (Matching UI/UX image) -->
+  <!-- 90 deg (Right - Tail) -->
+  <circle cx="416" cy="256" r="23" fill="#2848d8" filter="url(#blueGlow)" />
+  <circle cx="416" cy="256" r="22" fill="#3658f0" stroke="#1d34a8" stroke-width="3" />
+
+  <!-- 120 deg (Bottom Right - Head/Highest) -->
+  <circle cx="395" cy="336" r="26" fill="#4d72ff" filter="url(#brightBlueGlow)" />
+  <circle cx="395" cy="336" r="24" fill="#587eff" stroke="#2648d8" stroke-width="3" />
+  <circle cx="395" cy="336" r="18" fill="#7596ff" opacity="0.6" />
+
+  <!-- 150 deg (Bottom - Mid Blue) -->
+  <circle cx="336" cy="395" r="24" fill="#3254e8" filter="url(#blueGlow)" />
+  <circle cx="336" cy="395" r="23" fill="#3d62f5" stroke="#1e38b8" stroke-width="3" />
+
+  <!-- 180 deg (Bottom - Low Blue) -->
+  <circle cx="256" cy="416" r="22" fill="#2b40a8" opacity="0.9" />
+
+  <!-- Inactive Pegs Continued -->
+  <!-- 210 deg -->
+  <circle cx="176" cy="395" r="22" fill="#3a3d4f" stroke="#22232e" stroke-width="3" />
+  <!-- 240 deg -->
+  <circle cx="117" cy="336" r="22" fill="#3a3d4f" stroke="#22232e" stroke-width="3" />
+  <!-- 270 deg (Left) -->
+  <circle cx="96" cy="256" r="22" fill="#3a3d4f" stroke="#22232e" stroke-width="3" />
+  <!-- 300 deg -->
+  <circle cx="117" cy="176" r="22" fill="#3a3d4f" stroke="#22232e" stroke-width="3" />
+  <!-- 330 deg -->
+  <circle cx="176" cy="117" r="22" fill="#3a3d4f" stroke="#22232e" stroke-width="3" />
+</svg>

@@ -40,18 +40,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (splineViewer) {
-      splineViewer.addEventListener('load-complete', () => {
+      const isSplineReady = () => {
+        return splineViewer.hasAttribute('loaded') ||
+               splineViewer.loaded === true ||
+               (splineViewer.shadowRoot && splineViewer.shadowRoot.querySelector('canvas'));
+      };
+
+      if (isSplineReady()) {
         splineLoaded = true;
         checkAllLoaded();
-      });
+      } else {
+        splineViewer.addEventListener('load-complete', () => {
+          splineLoaded = true;
+          checkAllLoaded();
+        });
+
+        // Active polling every 100ms to catch canvas mount instantly
+        const splinePoll = setInterval(() => {
+          if (isSplineReady()) {
+            splineLoaded = true;
+            clearInterval(splinePoll);
+            checkAllLoaded();
+          }
+        }, 100);
+      }
     }
 
-    // Check immediately in case everything is already ready
+    // Initial check in case window and spline are already ready
     checkAllLoaded();
 
-    // Safety fallback: ensure preloader is hidden after 6s even if a network request hangs
-    setTimeout(hidePreloader, 6000);
+    // Safety fallback: ensure preloader is hidden after 5s max if any asset hangs
+    setTimeout(hidePreloader, 5000);
   }
+
 
 
   /* ==========================================================================
