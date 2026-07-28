@@ -717,8 +717,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateServicesScroll = () => {
-      if (window.innerWidth <= 768) return;
-
       const rect = servicesTrack.getBoundingClientRect();
       const trackHeight = servicesTrack.offsetHeight;
       const viewportHeight = window.innerHeight;
@@ -739,10 +737,21 @@ document.addEventListener('DOMContentLoaded', () => {
       setActiveSlide(targetIndex);
     };
 
+    // Click/Tap support for mobile and touch devices
+    sliderLinks.forEach((link, idx) => {
+      link.addEventListener('click', (e) => {
+        // Prevent default navigation if user taps to inspect service slide
+        if (window.innerWidth <= 768) {
+          setActiveSlide(idx);
+        }
+      });
+    });
+
     window.addEventListener('scroll', updateServicesScroll, { passive: true });
     window.addEventListener('resize', updateServicesScroll, { passive: true });
     updateServicesScroll();
   }
+
 });
 
 

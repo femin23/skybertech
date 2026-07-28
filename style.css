@@ -1283,20 +1283,72 @@ spline-viewer {
 }
 
 /* ==========================================================================
-   Interactive Hover Slideshow
+   Interactive Hover & Scroll Services Showcase
    ========================================================================== */
+.services-scroll-track {
+  position: relative;
+  height: 320vh; /* Scroll track for 4 sticky service steps */
+}
+
+.services-section {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+  background-color: var(--bg-primary);
+  padding: clamp(16px, 2vh, 40px) 0;
+  border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.services-container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vh, 48px);
+}
+
+.section-header-centered {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 1vh, 12px);
+}
+
+.section-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.section-title-centered {
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
 .hover-slider {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 64px;
+  gap: clamp(20px, 4vw, 64px);
   width: 100%;
 }
 
 .hover-slider-titles {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(6px, 1.8vh, 20px);
   flex: 1.2;
 }
 
@@ -1304,13 +1356,14 @@ spline-viewer {
   display: block;
   text-decoration: none;
   font-family: var(--font-heading);
-  font-size: 3.2rem;
+  font-size: clamp(1.25rem, 2.8vw, 3.2rem);
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
   color: var(--text-main);
   cursor: pointer;
   outline: none;
+  transition: color 0.3s ease;
 }
 
 /* Stagger Text Reveal Structure */
@@ -1359,7 +1412,7 @@ spline-viewer {
 .hover-slider-image-wrap {
   display: grid;
   flex: 1;
-  max-width: 480px;
+  max-width: clamp(280px, 35vw, 480px);
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
@@ -1401,66 +1454,26 @@ spline-viewer {
   transform: scale(1.02);
 }
 
-/* Responsive Behavior */
-@media (max-width: 768px) {
+/* Responsive Behavior Across All Devices */
+@media (max-width: 900px) {
   .hover-slider {
     flex-direction: column;
     align-items: center;
-    gap: 32px;
+    gap: clamp(14px, 2vh, 24px);
   }
   
   .hover-slider-titles {
     align-items: center;
     text-align: center;
-    gap: 12px;
-  }
-  
-  .slider-title-link {
-    font-size: 2rem;
-    letter-spacing: -0.5px;
+    gap: clamp(6px, 1.2vh, 12px);
   }
   
   .hover-slider-image-wrap {
-    max-width: 100%;
-    aspect-ratio: 4 / 3;
+    max-width: min(100%, 400px);
+    aspect-ratio: 16 / 9;
   }
 }
 
-
-
-/* Core Services Section Sticky Pinned Scroll Track */
-.services-scroll-track {
-  position: relative;
-  height: 320vh; /* Scroll track for 4 sticky service steps */
-}
-
-@media (max-width: 768px) {
-  .services-scroll-track {
-    height: auto;
-  }
-}
-
-.services-section {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 10;
-  background-color: var(--bg-primary);
-  padding: 40px 0;
-  border-bottom: 1px solid var(--border-light);
-  overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  .services-section {
-    position: relative;
-    height: auto;
-    padding: 50px 0;
-  }
-}
 
 
 .services-container {
