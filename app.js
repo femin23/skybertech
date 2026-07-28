@@ -1,32 +1,56 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ==========================================================================
-     Page Preloader — hide once page is ready
+     Page Preloader — hide only after hero & page are fully loaded
      ========================================================================== */
   const preloader = document.getElementById('page-preloader');
   if (preloader) {
-    // Keep preloader for a minimum of 800ms so the animation plays nicely
-    const minDelay = 800;
+    const minDelay = 800; // Minimum duration for visual smoothness
     const startTime = Date.now();
+    let isHidden = false;
 
     const hidePreloader = () => {
+      if (isHidden) return;
+      isHidden = true;
+
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(0, minDelay - elapsed);
       setTimeout(() => {
         preloader.classList.add('preloader-hidden');
         document.body.classList.remove('preloader-active');
-        // Remove from DOM after transition so it never blocks interaction
         preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
       }, remaining);
     };
 
-    if (document.readyState === 'complete') {
-      hidePreloader();
-    } else {
-      window.addEventListener('load', hidePreloader);
-      // Hard fallback — never stay longer than 5 s
-      setTimeout(hidePreloader, 5000);
+    const splineViewer = document.querySelector('spline-viewer');
+    let windowLoaded = (document.readyState === 'complete');
+    let splineLoaded = !splineViewer; // If no spline-viewer on page, treat as ready
+
+    const checkAllLoaded = () => {
+      if (windowLoaded && splineLoaded) {
+        hidePreloader();
+      }
+    };
+
+    if (!windowLoaded) {
+      window.addEventListener('load', () => {
+        windowLoaded = true;
+        checkAllLoaded();
+      });
     }
+
+    if (splineViewer) {
+      splineViewer.addEventListener('load-complete', () => {
+        splineLoaded = true;
+        checkAllLoaded();
+      });
+    }
+
+    // Check immediately in case everything is already ready
+    checkAllLoaded();
+
+    // Safety fallback: ensure preloader is hidden after 6s even if a network request hangs
+    setTimeout(hidePreloader, 6000);
   }
 
 
