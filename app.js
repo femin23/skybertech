@@ -686,5 +686,66 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
+
+  /* ==========================================================================
+     Pinned Scroll-Driven Service Showcase Controller
+     ========================================================================== */
+  const servicesTrack = document.getElementById('services-scroll-track');
+  
+  if (servicesTrack && sliderLinks.length > 0 && imageItems.length > 0) {
+    let isUserHovering = false;
+
+    // Allow hover to temporarily take precedence when user moves cursor over tiles
+    const hoverSlider = document.getElementById('services-hover-slider');
+    if (hoverSlider) {
+      hoverSlider.addEventListener('mouseenter', () => { isUserHovering = true; });
+      hoverSlider.addEventListener('mouseleave', () => { isUserHovering = false; });
+    }
+
+    const setActiveSlide = (index) => {
+      sliderLinks.forEach((l, i) => {
+        if (i === index) {
+          l.classList.add('active');
+        } else {
+          l.classList.remove('active');
+        }
+      });
+
+      imageItems.forEach((img, i) => {
+        if (i === index) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+      });
+    };
+
+    const updateServicesScroll = () => {
+      if (window.innerWidth <= 768 || isUserHovering) return;
+
+      const rect = servicesTrack.getBoundingClientRect();
+      const trackHeight = servicesTrack.offsetHeight;
+      const viewportHeight = window.innerHeight;
+      const totalScrollable = trackHeight - viewportHeight;
+
+      if (totalScrollable <= 0) return;
+
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(0.999, scrolled / totalScrollable));
+
+      // Map scroll progress (0..1) across 4 steps:
+      // 0.00-0.25 -> Slide 0 (AI Consulting)
+      // 0.25-0.50 -> Slide 1 (IT Consulting)
+      // 0.50-0.75 -> Slide 2 (Back Office)
+      // 0.75-1.00 -> Slide 3 (IT Auditing)
+      const targetIndex = Math.min(3, Math.floor(progress * 4));
+      setActiveSlide(targetIndex);
+    };
+
+    window.addEventListener('scroll', updateServicesScroll, { passive: true });
+    window.addEventListener('resize', updateServicesScroll, { passive: true });
+    updateServicesScroll();
+  }
 });
+
 

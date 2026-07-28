@@ -1428,14 +1428,40 @@ spline-viewer {
 
 
 
-/* Core Services Section Overlap Parallax */
-.services-section {
+/* Core Services Section Sticky Pinned Scroll Track */
+.services-scroll-track {
   position: relative;
+  height: 320vh; /* Scroll track for 4 sticky service steps */
+}
+
+@media (max-width: 768px) {
+  .services-scroll-track {
+    height: auto;
+  }
+}
+
+.services-section {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   z-index: 10;
   background-color: var(--bg-primary);
-  padding: 20px 0 40px; /* Reduced top padding to exactly 20px */
+  padding: 40px 0;
   border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
 }
+
+@media (max-width: 768px) {
+  .services-section {
+    position: relative;
+    height: auto;
+    padding: 50px 0;
+  }
+}
+
 
 .services-container {
   display: flex;
