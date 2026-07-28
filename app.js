@@ -1,5 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-  
+
+  /* ==========================================================================
+     Page Preloader — hide once page is ready
+     ========================================================================== */
+  const preloader = document.getElementById('page-preloader');
+  if (preloader) {
+    // Keep preloader for a minimum of 800ms so the animation plays nicely
+    const minDelay = 800;
+    const startTime = Date.now();
+
+    const hidePreloader = () => {
+      const elapsed = Date.now() - startTime;
+      const remaining = Math.max(0, minDelay - elapsed);
+      setTimeout(() => {
+        preloader.classList.add('preloader-hidden');
+        document.body.classList.remove('preloader-active');
+        // Remove from DOM after transition so it never blocks interaction
+        preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
+      }, remaining);
+    };
+
+    if (document.readyState === 'complete') {
+      hidePreloader();
+    } else {
+      window.addEventListener('load', hidePreloader);
+      // Hard fallback — never stay longer than 5 s
+      setTimeout(hidePreloader, 5000);
+    }
+  }
+
+
   /* ==========================================================================
      Mobile Navigation Toggle
      ========================================================================== */
